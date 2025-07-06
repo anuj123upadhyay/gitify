@@ -24,6 +24,10 @@ if (!process.env.NEXT_PUBLIC_COLLECTION_NOTIFICATIONS) {
   throw new Error('NEXT_PUBLIC_COLLECTION_NOTIFICATIONS is required');
 }
 
+if (!process.env.NEXT_PUBLIC_FUNCTION_POLLING) {
+  throw new Error('NEXT_PUBLIC_FUNCTION_POLLING is required');
+}
+
 export const client = new Client()
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
@@ -38,4 +42,9 @@ export const COLLECTIONS = {
   USERS: process.env.NEXT_PUBLIC_COLLECTION_USERS!,
   REPOSITORIES: process.env.NEXT_PUBLIC_COLLECTION_REPOSITORIES!,
   NOTIFICATIONS: process.env.NEXT_PUBLIC_COLLECTION_NOTIFICATIONS!,
+} as const;
+
+// Function IDs
+export const FUNCTIONS = {
+  POLLING: process.env.NEXT_PUBLIC_FUNCTION_POLLING!,
 } as const;
