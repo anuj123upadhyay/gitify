@@ -32,9 +32,16 @@ export function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link href="/dashboard" className="flex items-center space-x-2">
-                <Github className="h-8 w-8 text-primary-600" />
-                <span className="text-xl font-bold text-gray-900">Gitify</span>
+              <Link href="/dashboard" className="flex items-center space-x-3 group">
+                <div className="relative">
+                  <img 
+                    src="/icon.png" 
+                    alt="Gitify" 
+                    className="h-10 w-10 rounded-lg shadow-sm group-hover:shadow-md transition-shadow duration-200" 
+                  />
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+                </div>
+                <span className="text-xl font-bold text-gray-900 tracking-tight">Gitify</span>
               </Link>
             </div>
 

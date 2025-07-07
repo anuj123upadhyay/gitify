@@ -65,7 +65,15 @@ export default function SignUp() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <Github className="h-12 w-12 text-primary-600" />
+          <div className="relative p-2">
+            <img 
+              src="/icon.png" 
+              alt="Gitify" 
+              className="h-16 w-16 rounded-xl shadow-lg" 
+            />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/20 to-transparent pointer-events-none"></div>
+            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-primary-600 to-blue-600 opacity-20 blur-sm"></div>
+          </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Create your account
