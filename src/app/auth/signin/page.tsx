@@ -57,16 +57,16 @@ export default function SignIn() {
               alt="Gitify" 
               className="h-16 w-16 rounded-xl shadow-lg" 
             />
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/20 to-transparent pointer-events-none"></div>
-            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-primary-600 to-blue-600 opacity-20 blur-sm"></div>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 pointer-events-none"></div>
+            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 opacity-20 blur-sm"></div>
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-secondary-700">
           Sign in to Gitify
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-secondary-600">
           Or{' '}
-          <Link href="/auth/signup" className="font-medium text-primary-600 hover:text-primary-500">
+          <Link href="/auth/signup" className="font-medium text-primary-500 hover:text-primary-600">
             create a new account
           </Link>
         </p>

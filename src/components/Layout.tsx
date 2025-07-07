@@ -39,20 +39,13 @@ export function Layout({ children }: LayoutProps) {
                     alt="Gitify" 
                     className="h-10 w-10 rounded-lg shadow-sm group-hover:shadow-md transition-shadow duration-200" 
                   />
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary-400/20 to-secondary-400/20 pointer-events-none"></div>
                 </div>
-                <span className="text-xl font-bold text-gray-900 tracking-tight">Gitify</span>
+                <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent tracking-tight">Gitify</span>
               </Link>
             </div>
 
             <div className="flex items-center space-x-4">
-              <Link href="/dashboard/add-repo">
-                <Button size="sm" className="flex items-center space-x-1">
-                  <Plus className="h-4 w-4" />
-                  <span>Add Repo</span>
-                </Button>
-              </Link>
-
               <Link href="/dashboard/settings">
                 <Button variant="ghost" size="sm">
                   <Settings className="h-4 w-4" />
@@ -60,7 +53,7 @@ export function Layout({ children }: LayoutProps) {
               </Link>
 
               <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-700">{user.name}</span>
+                <span className="text-sm text-secondary-600 font-medium">{user.name}</span>
                 <Button variant="ghost" size="sm" onClick={handleSignOut}>
                   <LogOut className="h-4 w-4" />
                 </Button>

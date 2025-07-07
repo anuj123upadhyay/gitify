@@ -45,8 +45,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="192x192" href="/icon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#ffffff" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#F2732F" />
+        <meta name="msapplication-TileColor" content="#F2732F" />
         <meta name="msapplication-TileImage" content="/icon.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>

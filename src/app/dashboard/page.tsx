@@ -36,7 +36,7 @@ export default function Dashboard() {
       <Layout>
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading your repositories...</p>
           </div>
         </div>
@@ -50,10 +50,10 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-secondary-700">
               Welcome back, {user?.name}!
             </h1>
-            <p className="text-gray-600">
+            <p className="text-secondary-600">
               You're tracking {repositories.length} repositories
               <span className="ml-2 text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
                 📡 10-min polling
@@ -76,10 +76,10 @@ export default function Dashboard() {
                 <div className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                   <Plus className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                <h3 className="text-lg font-medium text-secondary-700 mb-2">
                   No repositories yet
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-secondary-600 mb-6">
                   Start by adding a GitHub repository to track new issues.
                 </p>
                 <Link href="/dashboard/add-repo">
@@ -95,10 +95,10 @@ export default function Dashboard() {
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-gray-900 truncate">
+                      <h3 className="font-medium text-secondary-700 truncate">
                         {repo.repo_owner}/{repo.repo_name}
                       </h3>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="text-sm text-secondary-500 mt-1">
                         Added {formatDate(repo.$createdAt)}
                       </p>
                     </div>
@@ -139,7 +139,7 @@ export default function Dashboard() {
                           {repo.labels.split(',').filter((label: string) => label.trim()).map((label: string, index: number) => (
                             <span
                               key={index}
-                              className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800"
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700"
                             >
                               {label.trim()}
                             </span>
@@ -160,7 +160,7 @@ export default function Dashboard() {
                       href={repo.repo_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-sm text-primary-600 hover:text-primary-700"
+                      className="inline-flex items-center text-sm text-secondary-600 hover:text-secondary-700"
                     >
                       View on GitHub
                       <ExternalLink className="h-3 w-3 ml-1" />

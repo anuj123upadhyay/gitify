@@ -118,10 +118,10 @@ export default function AddRepository() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-secondary-700">
               Add Repository
             </h1>
-            <p className="text-gray-600">
+            <p className="text-secondary-600">
               Track new issues in a GitHub repository
             </p>
           </div>
@@ -172,7 +172,7 @@ export default function AddRepository() {
                       onClick={() => handleLabelToggle(label)}
                       className={`px-3 py-1 rounded-full text-sm font-medium border transition-colors ${
                         formData.labels.includes(label)
-                          ? 'bg-primary-100 text-primary-800 border-primary-300'
+                          ? 'bg-primary-100 text-primary-700 border-primary-300'
                           : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                       }`}
                     >
@@ -215,13 +215,13 @@ export default function AddRepository() {
                       {formData.labels.map((label) => (
                         <span
                           key={label}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-700"
                         >
                           {label}
                           <button
                             type="button"
                             onClick={() => handleRemoveLabel(label)}
-                            className="ml-2 text-primary-600 hover:text-primary-800"
+                            className="ml-2 text-secondary-600 hover:text-secondary-700"
                           >
                             <X className="h-3 w-3" />
                           </button>

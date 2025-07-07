@@ -84,15 +84,15 @@ export default function Settings() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-            <p className="text-gray-600">Manage your account and preferences</p>
+            <h1 className="text-2xl font-bold text-secondary-700">Settings</h1>
+            <p className="text-secondary-600">Manage your account and preferences</p>
           </div>
         </div>
 
         {/* Account Information */}
         <Card>
           <CardHeader>
-            <h2 className="text-lg font-medium text-gray-900">Account Information</h2>
+            <h2 className="text-lg font-medium text-secondary-700">Account Information</h2>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
@@ -142,7 +142,7 @@ export default function Settings() {
         {/* Notification Preferences */}
         <Card>
           <CardHeader>
-            <h2 className="text-lg font-medium text-gray-900">Notification Preferences</h2>
+            <h2 className="text-lg font-medium text-secondary-700">Notification Preferences</h2>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
