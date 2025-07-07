@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { LoadingMessage } from '@/components/ui/Loader';
+import { Footer } from '@/components/Footer';
 import { Github, Bell, Zap, Shield, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 
@@ -127,6 +128,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

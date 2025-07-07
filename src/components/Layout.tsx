@@ -46,21 +46,21 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors">
       {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm transition-colors">
+      <nav className="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm transition-colors">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 xl:px-8">
           <div className="flex justify-between items-center h-12 sm:h-14 md:h-16">
             {/* Logo Section - Always Visible */}
             <div className="flex items-center flex-shrink-0 min-w-0">
-              <Link href="/dashboard" className="flex items-center space-x-1 sm:space-x-2 group">
+              <Link href="/dashboard" className="flex items-center space-x-3 group">
                 <div className="relative flex-shrink-0">
                   <img 
                     src="/icon.png" 
                     alt="Gitify" 
-                    className="h-6 w-6 xs:h-7 xs:w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 rounded-md sm:rounded-lg shadow-sm group-hover:shadow-md transition-shadow duration-200" 
+                    className="h-12 w-12 rounded-lg shadow-sm group-hover:shadow-md transition-shadow duration-200" 
                   />
-                  <div className="absolute inset-0 rounded-md sm:rounded-lg bg-gradient-to-br from-primary-400/20 to-secondary-400/20 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary-400/20 to-secondary-400/20 pointer-events-none"></div>
                 </div>
-                <span className="text-sm xs:text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent tracking-tight truncate">
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent tracking-tight truncate">
                   Gitify
                 </span>
               </Link>
