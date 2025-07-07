@@ -112,17 +112,17 @@ export default function AddRepository() {
         {/* Header - Mobile Optimized */}
         <div className="space-y-3 xs:space-y-4 sm:space-y-0">
           <Link href="/dashboard" className="inline-block">
-            <Button variant="ghost" size="sm" className="group hover:bg-secondary-50 transition-colors duration-200 text-xs xs:text-sm px-2 xs:px-3 py-1.5 xs:py-2">
+            <Button variant="ghost" size="sm" className="group hover:bg-secondary-50 dark:hover:bg-gray-800 transition-colors duration-200 text-xs xs:text-sm px-2 xs:px-3 py-1.5 xs:py-2">
               <ArrowLeft className="h-3 w-3 xs:h-4 xs:w-4 mr-1 xs:mr-2 group-hover:-translate-x-0.5 transition-transform duration-200" />
-              <span className="hidden xs:inline text-secondary-600 group-hover:text-secondary-700 font-medium">Back to Dashboard</span>
-              <span className="xs:hidden text-secondary-600 group-hover:text-secondary-700 font-medium">Back</span>
+              <span className="hidden xs:inline text-secondary-600 dark:text-secondary-300 group-hover:text-secondary-700 dark:group-hover:text-secondary-200 font-medium transition-colors">Back to Dashboard</span>
+              <span className="xs:hidden text-secondary-600 dark:text-secondary-300 group-hover:text-secondary-700 dark:group-hover:text-secondary-200 font-medium transition-colors">Back</span>
             </Button>
           </Link>
           <div className="space-y-1">
-            <h1 className="text-lg xs:text-xl sm:text-2xl font-bold text-secondary-700">
+            <h1 className="text-lg xs:text-xl sm:text-2xl font-bold text-secondary-700 dark:text-primary-300 transition-colors">
               Add Repository
             </h1>
-            <p className="text-xs xs:text-sm sm:text-base text-secondary-600">
+            <p className="text-xs xs:text-sm sm:text-base text-secondary-600 dark:text-secondary-300 transition-colors">
               Track new issues in a GitHub repository
             </p>
           </div>
@@ -131,14 +131,14 @@ export default function AddRepository() {
         {/* Form */}
         <Card>
           <CardHeader>
-            <h2 className="text-lg font-medium text-gray-900">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 transition-colors">
               Repository Details
             </h2>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-md text-sm transition-colors">
                   {error}
                 </div>
               )}
@@ -157,10 +157,10 @@ export default function AddRepository() {
 
               {/* Label Selection */}
               <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors">
                   Issue Labels to Track (Optional)
                 </label>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors">
                   Select the labels you want to monitor. Leave empty to track all new issues.
                 </p>
 
@@ -173,8 +173,8 @@ export default function AddRepository() {
                       onClick={() => handleLabelToggle(label)}
                       className={`px-3 py-1 rounded-full text-sm font-medium border transition-colors ${
                         formData.labels.includes(label)
-                          ? 'bg-primary-100 text-primary-700 border-primary-300'
-                          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                          ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border-primary-300 dark:border-primary-600'
+                          : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
                       }`}
                     >
                       {label}
@@ -209,20 +209,20 @@ export default function AddRepository() {
                 {/* Selected Labels */}
                 {formData.labels.length > 0 && (
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-gray-700">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors">
                       Selected labels:
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {formData.labels.map((label) => (
                         <span
                           key={label}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-700"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 transition-colors"
                         >
                           {label}
                           <button
                             type="button"
                             onClick={() => handleRemoveLabel(label)}
-                            className="ml-2 text-secondary-600 hover:text-secondary-700"
+                            className="ml-2 text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-300 transition-colors"
                           >
                             <X className="h-3 w-3" />
                           </button>

@@ -2,8 +2,9 @@
 
 import { ReactNode, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/Button';
-import { Github, LogOut, Settings, Plus } from 'lucide-react';
+import { Github, LogOut, Settings, Plus, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -13,6 +14,7 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const { user, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const router = useRouter();
   const isDashboard = pathname === '/dashboard';
@@ -42,9 +44,9 @@ export function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors">
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm transition-colors">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 xl:px-8">
           <div className="flex justify-between items-center h-12 sm:h-14 md:h-16">
             {/* Logo Section - Always Visible */}
@@ -66,6 +68,9 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Mobile Navigation - Extra Small Screens */}
             <div className="flex xs:hidden items-center space-x-1">
+              <Button variant="ghost" size="sm" onClick={toggleTheme} className="p-1.5">
+                {theme === 'dark' ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              </Button>
               <Link href="/dashboard/settings">
                 <Button variant="ghost" size="sm" className="p-1.5">
                   <Settings className="h-3.5 w-3.5" />
@@ -78,6 +83,9 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Small Mobile Navigation */}
             <div className="hidden xs:flex sm:hidden items-center space-x-1.5">
+              <Button variant="ghost" size="sm" onClick={toggleTheme} className="p-2">
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
               <Link href="/dashboard/settings">
                 <Button variant="ghost" size="sm" className="p-2">
                   <Settings className="h-4 w-4" />
@@ -90,13 +98,16 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Tablet Navigation */}
             <div className="hidden sm:flex md:hidden items-center space-x-2">
+              <Button variant="ghost" size="sm" onClick={toggleTheme} className="flex items-center px-2 py-1.5">
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
               <Link href="/dashboard/settings">
                 <Button variant="ghost" size="sm" className="flex items-center px-2 py-1.5">
                   <Settings className="h-4 w-4" />
                 </Button>
               </Link>
               <div className="flex items-center space-x-1.5">
-                <span className="text-xs text-secondary-600 font-medium max-w-[80px] truncate">
+                <span className="text-xs text-secondary-600 dark:text-primary-400 font-medium max-w-[80px] truncate">
                   {user.name}
                 </span>
                 <Button variant="ghost" size="sm" onClick={confirmSignOut} className="flex items-center px-2 py-1.5">
@@ -107,6 +118,10 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
+              <Button variant="ghost" size="sm" onClick={toggleTheme} className="flex items-center px-3 py-2">
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                <span className="ml-2 hidden lg:inline text-sm">{theme === 'dark' ? 'Light' : 'Dark'}</span>
+              </Button>
               <Link href="/dashboard/settings">
                 <Button variant="ghost" size="sm" className="flex items-center px-3 py-2">
                   <Settings className="h-4 w-4" />
@@ -115,7 +130,7 @@ export function Layout({ children }: LayoutProps) {
               </Link>
 
               <div className="flex items-center space-x-2 lg:space-x-3">
-                <span className="text-sm text-secondary-600 font-medium max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] truncate">
+                <span className="text-sm text-secondary-600 dark:text-primary-400 font-medium max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] truncate">
                   {user.name}
                 </span>
                 <Button variant="ghost" size="sm" onClick={confirmSignOut} className="flex items-center px-3 py-2">
@@ -128,7 +143,7 @@ export function Layout({ children }: LayoutProps) {
           
           {/* Mobile Add Repository Button - Only on Dashboard */}
           {isDashboard && (
-            <div className="sm:hidden border-t border-gray-100 px-2 py-2">
+            <div className="sm:hidden border-t border-gray-100 dark:border-gray-800 px-2 py-2">
               <Link href="/dashboard/add-repo">
                 <Button size="sm" className="w-full flex items-center justify-center space-x-2 text-sm">
                   <Plus className="h-4 w-4" />
@@ -142,13 +157,13 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Sign Out Confirmation Modal */}
       {showSignOutConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-sm w-full mx-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-sm w-full mx-4">
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-primary-300 mb-2">
                 Confirm Sign Out
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Are you sure you want to sign out of Gitify?
               </p>
               <div className="flex space-x-3">

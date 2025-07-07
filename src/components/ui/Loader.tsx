@@ -39,13 +39,13 @@ export function LoadingMessage({
   };
 
   const containerClass = fullPage 
-    ? 'fixed inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center z-50'
+    ? 'fixed inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center z-50 transition-colors'
     : 'flex flex-col items-center justify-center';
 
   return (
     <div className={`${containerClass} space-y-4 ${className}`}>
       <Loader size={size} />
-      <p className={`${textSizeClasses[size]} text-secondary-600 font-medium animate-pulse`}>
+      <p className={`${textSizeClasses[size]} text-secondary-600 dark:text-secondary-300 font-medium animate-pulse transition-colors`}>
         {message}
       </p>
     </div>

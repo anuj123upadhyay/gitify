@@ -12,16 +12,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="space-y-1">
         {label && (
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-primary-300">
             {label}
           </label>
         )}
         <input
           ref={ref}
           className={cn(
-            'block w-full rounded-md border-gray-300 shadow-sm transition-colors',
+            'block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm transition-colors',
+            'bg-white dark:bg-gray-800 text-gray-900 dark:text-primary-200',
             'focus:border-primary-500 focus:ring-primary-500',
-            'disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500',
+            'disabled:cursor-not-allowed disabled:bg-gray-50 dark:disabled:bg-gray-700 disabled:text-gray-500 dark:disabled:text-gray-400',
             error && 'border-red-300 focus:border-red-500 focus:ring-red-500',
             className
           )}

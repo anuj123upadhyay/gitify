@@ -62,7 +62,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="relative p-2">
@@ -75,12 +75,12 @@ export default function SignUp() {
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 opacity-20 blur-sm"></div>
           </div>
         </div>
-        <h2 className="mt-6 text-center text-2xl sm:text-3xl font-bold text-secondary-700">
+        <h2 className="mt-6 text-center text-2xl sm:text-3xl font-bold text-secondary-700 dark:text-primary-300 transition-colors">
           Create your account
         </h2>
-        <p className="mt-2 text-center text-sm text-secondary-600">
+        <p className="mt-2 text-center text-sm text-secondary-600 dark:text-secondary-300 transition-colors">
           Already have an account?{' '}
-          <Link href="/auth/signin" className="font-medium text-primary-500 hover:text-primary-600">
+          <Link href="/auth/signin" className="font-medium text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 transition-colors">
             Sign in
           </Link>
         </p>
@@ -101,10 +101,10 @@ export default function SignUp() {
             
             <div className="relative mt-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-gray-300 dark:border-gray-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with email</span>
+                <span className="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 transition-colors">Or continue with email</span>
               </div>
             </div>
           </CardHeader>
@@ -112,7 +112,7 @@ export default function SignUp() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-md text-sm transition-colors">
                   {error}
                 </div>
               )}

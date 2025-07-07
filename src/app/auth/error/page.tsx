@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import { LoadingMessage } from '@/components/ui/Loader';
 import { AlertCircle, Github } from 'lucide-react';
 import Link from 'next/link';
 
@@ -12,12 +13,12 @@ function AuthErrorContent() {
   const message = searchParams.get('message') || 'Authentication failed';
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <Github className="h-12 w-12 text-gray-400" />
+          <Github className="h-12 w-12 text-gray-400 dark:text-gray-500" />
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-primary-300 transition-colors">
           Authentication Error
         </h2>
       </div>
@@ -28,10 +29,10 @@ function AuthErrorContent() {
             <div className="flex items-center space-x-3">
               <AlertCircle className="h-8 w-8 text-red-500" />
               <div>
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 transition-colors">
                   Sign In Failed
                 </h3>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 transition-colors">
                   {message}
                 </p>
               </div>
@@ -40,10 +41,10 @@ function AuthErrorContent() {
           
           <CardContent>
             <div className="space-y-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors">
                 This could happen for several reasons:
               </p>
-              <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+              <ul className="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside space-y-1 transition-colors">
                 <li>You cancelled the authentication process</li>
                 <li>There was a network connection issue</li>
                 <li>The authentication provider is temporarily unavailable</li>
@@ -71,12 +72,12 @@ function AuthErrorContent() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <Github className="h-12 w-12 text-gray-400" />
+        <div className="flex justify-center mb-6">
+          <LoadingMessage size="lg" />
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="text-center text-3xl font-bold text-gray-900 dark:text-primary-300 transition-colors">
           Loading...
         </h2>
       </div>
