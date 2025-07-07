@@ -7,6 +7,7 @@ import { Layout } from '@/components/Layout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { LoadingMessage } from '@/components/ui/Loader';
 import { ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
 
@@ -62,12 +63,7 @@ export default function Settings() {
   if (loading) {
     return (
       <Layout>
-        <div className="flex items-center justify-center py-12">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading settings...</p>
-          </div>
-        </div>
+        <LoadingMessage message="Loading settings..." size="lg" fullPage />
       </Layout>
     );
   }
@@ -76,11 +72,11 @@ export default function Settings() {
     <Layout>
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
-        <div className="flex items-center space-x-4">
-          <Link href="/dashboard">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+        <div className="space-y-4">
+          <Link href="/dashboard" className="inline-block">
+            <Button variant="ghost" size="sm" className="group hover:bg-secondary-50 transition-colors duration-200 px-3 py-2">
+              <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-0.5 transition-transform duration-200" />
+              <span className="text-secondary-600 group-hover:text-secondary-700 font-medium">Back to Dashboard</span>
             </Button>
           </Link>
           <div>

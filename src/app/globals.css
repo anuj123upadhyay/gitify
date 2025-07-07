@@ -78,3 +78,82 @@ a {
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: #6b7280;
 }
+
+/* Custom Gitify Loader Animations */
+@keyframes gitify-loader-spin {
+  100% { transform: rotate(1turn); }
+}
+
+@keyframes gitify-loader-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Gitify Hypnotism Loader Styles */
+.gitify-loader {
+  height: 50px;
+  display: grid;
+  color: #F2732F; /* Primary orange color */
+  background:
+    linear-gradient(currentColor 0 0) top/100% 2px,
+    radial-gradient(farthest-side at top, transparent calc(100% - 2px), currentColor calc(100% - 1px), transparent) top,
+    linear-gradient(currentColor 0 0) bottom/100% 2px,
+    radial-gradient(farthest-side at bottom, transparent calc(100% - 2px), currentColor calc(100% - 1px), transparent) bottom;
+  background-size: 100% 1px, 100% 50%; 
+  background-repeat: no-repeat;
+  animation: gitify-loader-spin 4s infinite linear;
+}
+
+.gitify-loader::before,
+.gitify-loader::after {
+  content: "";
+  grid-area: 1/1;
+  background: inherit;
+  border: inherit;
+  animation: inherit;
+}
+
+.gitify-loader::after {
+  animation-duration: 2s;
+  color: #2D8CA8; /* Secondary teal color */
+}
+
+/* Size variations */
+.gitify-loader-sm {
+  width: 20px;
+  height: 40px;
+}
+
+.gitify-loader-md {
+  width: 25px;
+  height: 50px;
+}
+
+.gitify-loader-lg {
+  width: 30px;
+  height: 60px;
+}
+
+.gitify-loader-xl {
+  width: 35px;
+  height: 70px;
+}
+
+.gitify-loader-pulse {
+  animation: gitify-loader-pulse 1.5s ease-in-out infinite;
+}
+
+/* Rotation utilities for watch pins */
+.rotate-30 { transform: rotate(30deg); }
+.rotate-120 { transform: rotate(120deg); }
+.rotate-135 { transform: rotate(135deg); }
+.rotate-225 { transform: rotate(225deg); }
+.rotate-240 { transform: rotate(240deg); }
+.rotate-270 { transform: rotate(270deg); }
+.rotate-315 { transform: rotate(315deg); }
+.rotate-330 { transform: rotate(330deg); }
+
+/* Smooth transitions for all interactive elements */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { account, databases, DATABASE_ID, COLLECTIONS } from '@/lib/appwrite';
+import { LoadingMessage } from '@/components/ui/Loader';
 
 export default function AuthCallback() {
   const router = useRouter();
@@ -56,18 +57,10 @@ export default function AuthCallback() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
-          <h2 className="mt-6 text-center text-2xl font-bold text-secondary-700">
-            Completing sign in...
-          </h2>
-          <p className="mt-2 text-center text-sm text-secondary-600">
-            Please wait while we set up your account
-          </p>
-        </div>
-      </div>
-    </div>
+    <LoadingMessage 
+      message="Completing sign in..." 
+      size="xl" 
+      fullPage
+    />
   );
 }

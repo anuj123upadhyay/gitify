@@ -48,20 +48,20 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="relative p-2">
             <img 
               src="/icon.png" 
               alt="Gitify" 
-              className="h-16 w-16 rounded-xl shadow-lg" 
+              className="h-12 w-12 sm:h-16 sm:w-16 rounded-xl shadow-lg" 
             />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 pointer-events-none"></div>
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 opacity-20 blur-sm"></div>
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-secondary-700">
+        <h2 className="mt-6 text-center text-2xl sm:text-3xl font-bold text-secondary-700">
           Sign in to Gitify
         </h2>
         <p className="mt-2 text-center text-sm text-secondary-600">
@@ -72,7 +72,7 @@ export default function SignIn() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
         <Card>
           <CardHeader>
             <Button

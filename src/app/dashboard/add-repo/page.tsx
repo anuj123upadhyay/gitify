@@ -108,20 +108,21 @@ export default function AddRepository() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center space-x-4">
-          <Link href="/dashboard">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+      <div className="max-w-2xl mx-auto space-y-3 xs:space-y-4 sm:space-y-6">
+        {/* Header - Mobile Optimized */}
+        <div className="space-y-3 xs:space-y-4 sm:space-y-0">
+          <Link href="/dashboard" className="inline-block">
+            <Button variant="ghost" size="sm" className="group hover:bg-secondary-50 transition-colors duration-200 text-xs xs:text-sm px-2 xs:px-3 py-1.5 xs:py-2">
+              <ArrowLeft className="h-3 w-3 xs:h-4 xs:w-4 mr-1 xs:mr-2 group-hover:-translate-x-0.5 transition-transform duration-200" />
+              <span className="hidden xs:inline text-secondary-600 group-hover:text-secondary-700 font-medium">Back to Dashboard</span>
+              <span className="xs:hidden text-secondary-600 group-hover:text-secondary-700 font-medium">Back</span>
             </Button>
           </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-secondary-700">
+          <div className="space-y-1">
+            <h1 className="text-lg xs:text-xl sm:text-2xl font-bold text-secondary-700">
               Add Repository
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-xs xs:text-sm sm:text-base text-secondary-600">
               Track new issues in a GitHub repository
             </p>
           </div>
