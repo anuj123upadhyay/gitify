@@ -157,3 +157,100 @@ a {
 .transition-smooth {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* 3D Background Animations */
+@keyframes float-3d {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px) rotateX(5deg) rotateY(5deg);
+  }
+  50% {
+    transform: translateY(-20px) translateX(0px) rotateX(10deg) rotateY(-5deg);
+  }
+  75% {
+    transform: translateY(-10px) translateX(-5px) rotateX(5deg) rotateY(10deg);
+  }
+}
+
+@keyframes orbit-slow {
+  from {
+    transform: rotate(0deg) translateX(100px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(100px) rotate(-360deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.1;
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    opacity: 0.3;
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
+.animate-float-3d {
+  animation: float-3d 8s ease-in-out infinite;
+}
+
+.animate-orbit-slow {
+  animation: orbit-slow 20s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Particle effects */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #F2732F, #2D8CA8);
+  animation: particle-float 10s ease-in-out infinite;
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-50px) scale(1.1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-100px) scale(0.8);
+    opacity: 0.1;
+  }
+  75% {
+    transform: translateY(-50px) scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+/* Mouse trail light effect */
+@keyframes light-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.light-trail {
+  background: radial-gradient(circle, rgba(242, 115, 47, 0.3) 0%, rgba(45, 140, 168, 0.2) 50%, transparent 70%);
+  animation: light-pulse 2s ease-in-out infinite;
+}
+
+/* Smooth mouse following */
+.mouse-follower {
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}

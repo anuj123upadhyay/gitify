@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { LoadingMessage } from '@/components/ui/Loader';
 import { Footer } from '@/components/Footer';
+import ThreeDBackground from '@/components/ui/ThreeDBackground';
 import { Github, Bell, Zap, Shield, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 
@@ -30,7 +31,10 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-black dark:via-black dark:to-black transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-black dark:via-black dark:to-black transition-colors relative">
+      {/* 3D Background Animation */}
+      <ThreeDBackground />
+      
       {/* Navigation */}
       <nav className="bg-white/90 dark:bg-black/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
@@ -64,7 +68,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 relative z-10">
         <div className="text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-secondary-700 dark:text-primary-300 mb-4 sm:mb-6 transition-colors">
             Never Miss a{' '}
@@ -90,7 +94,7 @@ export default function Home() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-16 sm:mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-16 sm:mt-20 relative z-10">
           <div className="text-center p-4 sm:p-6">
             <div className="bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 rounded-full w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4 transition-colors">
               <Bell className="h-6 w-6 sm:h-8 sm:w-8 text-primary-600 dark:text-primary-400" />
@@ -130,7 +134,9 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }
