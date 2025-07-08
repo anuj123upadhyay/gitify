@@ -40,7 +40,60 @@ export function Layout({ children }: LayoutProps) {
   };
 
   if (!user) {
-    return <>{children}</>;
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="flex justify-center">
+            <div className="relative p-2">
+              <img 
+                src="/icon.png" 
+                alt="Gitify" 
+                className="h-16 w-16 sm:h-20 sm:w-20 rounded-xl shadow-lg" 
+              />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 pointer-events-none"></div>
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 opacity-20 blur-sm"></div>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center space-y-6">
+            <div className="space-y-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-secondary-700 dark:text-primary-300 transition-colors">
+                Welcome to Gitify
+              </h2>
+              <p className="text-secondary-600 dark:text-secondary-300 transition-colors">
+                Please sign in to access your dashboard
+              </p>
+            </div>
+            
+            <div className="space-y-3">
+              <p className="text-sm text-secondary-500 dark:text-secondary-400 transition-colors">
+                Never miss a GitHub issue again. Track your repositories and get notified when new issues are created.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link href="/auth/signin">
+                  <Button className="w-full sm:w-auto">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/auth/signup">
+                  <Button variant="outline" className="w-full sm:w-auto">
+                    Create Account
+                  </Button>
+                </Link>
+              </div>
+              
+              <p className="text-xs text-secondary-400 dark:text-secondary-500 transition-colors">
+                Or{' '}
+                <Link href="/" className="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 transition-colors">
+                  go back to home
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
