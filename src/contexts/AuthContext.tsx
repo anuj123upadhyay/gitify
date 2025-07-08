@@ -128,8 +128,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signInWithGitHub = async () => {
     try {
       await account.createOAuth2Session('github', 
-        `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
-        `${process.env.NEXT_PUBLIC_APP_URL}/auth/error`
+        `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,//for deployment 
+        `${process.env.NEXT_PUBLIC_APP_URL}/auth/error` //for deployment
+        // `http://localhost:300/auth/callback`, //for local development
+        // `http://localhost:300/auth/error` //for local development
       );
     } catch (error) {
       throw error;
