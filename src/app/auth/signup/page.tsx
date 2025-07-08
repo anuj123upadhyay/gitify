@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import AuthBackground from '@/components/ui/AuthBackground';
 import { Github } from 'lucide-react';
 import Link from 'next/link';
 
@@ -62,8 +63,11 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 transition-colors">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 transition-colors relative">
+      {/* Auth Background Animation */}
+      <AuthBackground />
+      
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center">
           <div className="relative p-2">
             <img 

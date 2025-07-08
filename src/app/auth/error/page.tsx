@@ -5,7 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { LoadingMessage } from '@/components/ui/Loader';
-import { AlertCircle, Github } from 'lucide-react';
+import ErrorBackground from '@/components/ui/ErrorBackground';
+import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
 function AuthErrorContent() {
@@ -13,14 +14,19 @@ function AuthErrorContent() {
   const message = searchParams.get('message') || 'Authentication failed';
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors">
+    <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors relative z-10">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <Github className="h-12 w-12 text-gray-400 dark:text-gray-500" />
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex items-center space-x-3">
+            <img src="/icon.png" alt="Gitify" className="h-12 w-12 rounded-lg shadow-lg shadow-primary-500/20 dark:shadow-primary-500/10" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              Gitify
+            </span>
+          </div>
+          <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-primary-300 transition-colors">
+            Authentication Error
+          </h2>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-primary-300 transition-colors">
-          Authentication Error
-        </h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -74,10 +80,16 @@ function LoadingFallback() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center mb-6">
+        <div className="flex items-center justify-center space-x-3 mb-6">
+          <img src="/icon.png" alt="Gitify" className="h-12 w-12 rounded-lg shadow-lg shadow-primary-500/20 dark:shadow-primary-500/10" />
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+            Gitify
+          </span>
+        </div>
+        <div className="flex justify-center">
           <LoadingMessage size="lg" />
         </div>
-        <h2 className="text-center text-3xl font-bold text-gray-900 dark:text-primary-300 transition-colors">
+        <h2 className="text-center text-3xl font-bold text-gray-900 dark:text-primary-300 transition-colors mt-4">
           Loading...
         </h2>
       </div>
@@ -88,7 +100,10 @@ function LoadingFallback() {
 export default function AuthError() {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <AuthErrorContent />
+      <div className="relative">
+        <ErrorBackground />
+        <AuthErrorContent />
+      </div>
     </Suspense>
   );
 }

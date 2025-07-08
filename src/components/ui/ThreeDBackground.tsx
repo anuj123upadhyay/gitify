@@ -5,9 +5,10 @@ import { GitBranch, GitCommit, GitPullRequest, Star, Code, Users, Database, Zap 
 
 const ThreeDBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const [isMouseMoving, setIsMouseMoving] = useState(false);
   const mouseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [mouseTrail, setMouseTrail] = useState<Array<{x: number, y: number, id: number}>>([]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -23,6 +24,19 @@ const ThreeDBackground = () => {
       setMousePosition(newPosition);
       setIsMouseMoving(true);
       
+      // Add to trail with smoother intervals
+      setMouseTrail(prev => {
+        const timeSinceLastPoint = prev.length > 0 ? Date.now() - prev[0].id : 100;
+        if (timeSinceLastPoint > 50) { // Only add point every 50ms for smoother trail
+          const newTrail = [
+            { x: newPosition.x, y: newPosition.y, id: Date.now() },
+            ...prev.slice(0, 5) // Keep only last 5 positions for elegance
+          ];
+          return newTrail;
+        }
+        return prev;
+      });
+      
       // Clear existing timeout
       if (mouseTimeoutRef.current) {
         clearTimeout(mouseTimeoutRef.current);
@@ -31,16 +45,25 @@ const ThreeDBackground = () => {
       // Set timeout to hide trail after mouse stops
       mouseTimeoutRef.current = setTimeout(() => {
         setIsMouseMoving(false);
-      }, 1000);
+        // Gradually fade out trail
+        setTimeout(() => setMouseTrail([]), 800);
+      }, 1200);
     };
 
     const handleMouseLeave = () => {
       setIsMouseMoving(false);
+      // Fade out trail gradually when leaving
+      setTimeout(() => setMouseTrail([]), 600);
+    };
+
+    const handleMouseEnter = () => {
+      setIsMouseMoving(true);
     };
 
     // Add mouse event listeners
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('mouseenter', handleMouseEnter);
 
     // Create floating code snippets
     const codeSnippets = ['{ }', '< />', '[ ]', '( )', '=> {', 'git', 'npm', 'yarn'];
@@ -88,6 +111,7 @@ const ThreeDBackground = () => {
       // Clean up event listeners
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('mouseenter', handleMouseEnter);
       
       // Clean up timeout
       if (mouseTimeoutRef.current) {
@@ -106,33 +130,55 @@ const ThreeDBackground = () => {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 overflow-hidden z-0"
+      className="fixed inset-0 overflow-hidden z-0 elegant-background"
       style={{ pointerEvents: 'auto' }}
     >
-      {/* Mouse light trail effect - Always show a faint version for testing */}
+      {/* Mouse light trail effect - Elegant and refined */}
       <div
-        className="absolute pointer-events-none transition-all duration-200 ease-out mouse-follower z-10"
+        className="absolute pointer-events-none transition-all duration-300 ease-out mouse-follower z-15"
         style={{
           left: `${mousePosition.x}%`,
           top: `${mousePosition.y}%`,
           transform: 'translate(-50%, -50%)',
-          opacity: isMouseMoving ? 1 : 0.3,
+          opacity: isMouseMoving ? 0.8 : 0.3,
         }}
       >
-        {/* Main light glow */}
-        <div className="absolute w-32 h-32 bg-gradient-radial from-primary-400/40 via-primary-300/20 to-transparent dark:from-primary-500/30 dark:via-primary-400/15 dark:to-transparent rounded-full blur-xl animate-pulse-slow" />
+        {/* Soft outer glow */}
+        <div className="absolute w-32 h-32 bg-gradient-radial from-primary-400/20 via-primary-300/10 to-transparent dark:from-primary-500/15 dark:via-primary-400/8 dark:to-transparent rounded-full blur-2xl" />
         
-        {/* Secondary glow */}
-        <div className="absolute w-20 h-20 bg-gradient-radial from-secondary-400/50 via-secondary-300/25 to-transparent dark:from-secondary-500/35 dark:via-secondary-400/20 dark:to-transparent rounded-full blur-lg animate-pulse" />
+        {/* Main elegant glow */}
+        <div className="absolute w-20 h-20 bg-gradient-radial from-secondary-400/35 via-secondary-300/18 to-transparent dark:from-secondary-500/25 dark:via-secondary-400/12 dark:to-transparent rounded-full blur-xl animate-pulse-slow" />
         
-        {/* Core light */}
-        <div className="absolute w-8 h-8 bg-gradient-radial from-white/60 via-primary-200/40 to-transparent dark:from-white/40 dark:via-primary-300/25 dark:to-transparent rounded-full blur-sm" />
+        {/* Core light - subtle */}
+        <div className="absolute w-8 h-8 bg-gradient-radial from-white/40 via-primary-200/25 to-transparent dark:from-white/30 dark:via-primary-300/20 dark:to-transparent rounded-full blur-md" />
         
-        {/* Sparkle particles */}
-        <div className="absolute w-2 h-2 bg-primary-400 dark:bg-primary-300 rounded-full opacity-80 animate-ping" style={{ top: '-8px', left: '4px' }} />
-        <div className="absolute w-1.5 h-1.5 bg-secondary-400 dark:bg-secondary-300 rounded-full opacity-70 animate-ping" style={{ top: '6px', left: '-6px', animationDelay: '0.3s' }} />
-        <div className="absolute w-1.5 h-1.5 bg-primary-300 dark:bg-primary-400 rounded-full opacity-75 animate-ping" style={{ top: '8px', left: '10px', animationDelay: '0.6s' }} />
+        {/* Elegant sparkles - minimal */}
+        <div className="absolute w-1.5 h-1.5 bg-primary-400/70 dark:bg-primary-300/60 rounded-full animate-ping" style={{ top: '-6px', left: '4px', animationDuration: '2s' }} />
+        <div className="absolute w-1 h-1 bg-secondary-400/60 dark:bg-secondary-300/50 rounded-full animate-ping" style={{ top: '6px', left: '-5px', animationDelay: '0.7s', animationDuration: '2.5s' }} />
+        <div className="absolute w-1 h-1 bg-primary-300/50 dark:bg-primary-400/40 rounded-full animate-ping" style={{ top: '7px', left: '8px', animationDelay: '1.4s', animationDuration: '3s' }} />
       </div>
+
+      {/* Elegant mouse trail points */}
+      {mouseTrail.map((point, index) => (
+        <div
+          key={point.id}
+          className="absolute pointer-events-none z-10 transition-all duration-500 ease-out"
+          style={{
+            left: `${point.x}%`,
+            top: `${point.y}%`,
+            transform: 'translate(-50%, -50%)',
+            opacity: (1 - index * 0.2) * 0.4,
+          }}
+        >
+          <div 
+            className="w-3 h-3 bg-gradient-radial from-white/30 via-primary-300/20 to-transparent dark:from-white/25 dark:via-primary-400/15 dark:to-transparent rounded-full blur-sm"
+            style={{
+              animationDelay: `${index * 0.1}s`,
+              transform: `scale(${1 - index * 0.15})`,
+            }}
+          />
+        </div>
+      ))}
 
       {/* Enhanced gradient overlay for better visibility */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50/30 via-white/10 to-secondary-50/30 dark:from-primary-900/20 dark:via-black/10 dark:to-secondary-900/20" />

@@ -233,24 +233,57 @@ a {
   }
 }
 
-/* Mouse trail light effect */
-@keyframes light-pulse {
+/* Mouse trail light effect - Elegant and refined */
+@keyframes elegant-pulse {
   0%, 100% {
-    opacity: 0.3;
+    opacity: 0.6;
     transform: scale(1);
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gentle-glow {
+  0%, 100% {
+    opacity: 0.7;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes subtle-sparkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
     transform: scale(1.1);
   }
 }
 
-.light-trail {
-  background: radial-gradient(circle, rgba(242, 115, 47, 0.3) 0%, rgba(45, 140, 168, 0.2) 50%, transparent 70%);
-  animation: light-pulse 2s ease-in-out infinite;
+.elegant-trail {
+  background: radial-gradient(circle, rgba(242, 115, 47, 0.25) 0%, rgba(45, 140, 168, 0.15) 60%, transparent 100%);
+  animation: elegant-pulse 3s ease-in-out infinite;
 }
 
-/* Smooth mouse following */
+.gentle-sparkle {
+  animation: subtle-sparkle 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 2px currentColor);
+}
+
+/* Smooth mouse following - elegant response */
 .mouse-follower {
-  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Improve overall UX */
+.elegant-background {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }

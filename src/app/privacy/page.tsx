@@ -4,10 +4,12 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeft, Shield, Eye, Lock, Database } from 'lucide-react';
 import Link from 'next/link';
+import LegalBackground from '@/components/ui/LegalBackground';
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-black dark:via-black dark:to-black transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-black dark:via-black dark:to-black transition-colors relative">
+      <LegalBackground />
       {/* Navigation */}
       <nav className="bg-white/90 dark:bg-black/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

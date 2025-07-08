@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/Input';
 import { LoadingMessage } from '@/components/ui/Loader';
 import { ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
+import SettingsBackground from '@/components/ui/SettingsBackground';
 
 export default function Settings() {
   const { user, signOut } = useAuth();
@@ -70,8 +71,10 @@ export default function Settings() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header */}
+      <div className="relative">
+        <SettingsBackground />
+        <div className="max-w-2xl mx-auto space-y-6 relative z-10">
+          {/* Header */}
         <div className="space-y-4">
           <Link href="/dashboard" className="inline-block">
             <Button variant="ghost" size="sm" className="group hover:bg-secondary-50 dark:hover:bg-gray-800 transition-colors duration-200 px-3 py-2">
@@ -210,6 +213,7 @@ export default function Settings() {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </Layout>
   );
