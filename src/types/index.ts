@@ -70,6 +70,28 @@ export interface Notification {
   $updatedAt: string;
 }
 
+export interface UserIssueTracker {
+  $id: string;
+  user_id: string;
+  repository_id: string;
+  repo_owner: string;
+  repo_name: string;
+  last_issue_id: number;
+  last_issue_created_at: string;
+  last_checked_at: string;
+  $createdAt: string;
+  $updatedAt: string;
+}
+
+export interface GitHubTokenInfo {
+  token: string;
+  name: string;
+  rateLimitRemaining: number;
+  rateLimitReset: number;
+  isActive: boolean;
+  lastUsed: string;
+}
+
 export interface AppwriteError {
   message: string;
   code: number;

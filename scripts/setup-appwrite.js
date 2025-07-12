@@ -233,6 +233,83 @@ const collections = {
         attributes: ['repository_id']
       }
     ]
+  },
+  
+  USER_ISSUE_TRACKERS: {
+    id: 'user_issue_trackers',
+    name: 'User Issue Trackers',
+    attributes: [
+      {
+        key: 'user_id',
+        type: 'string',
+        size: 36,
+        required: true,
+        default: null,
+        array: false
+      },
+      {
+        key: 'repository_id',
+        type: 'string',
+        size: 36,
+        required: true,
+        default: null,
+        array: false
+      },
+      {
+        key: 'repo_owner',
+        type: 'string',
+        size: 100,
+        required: true,
+        default: null,
+        array: false
+      },
+      {
+        key: 'repo_name',
+        type: 'string',
+        size: 100,
+        required: true,
+        default: null,
+        array: false
+      },
+      {
+        key: 'last_issue_id',
+        type: 'integer',
+        required: true,
+        default: 0,
+        array: false
+      },
+      {
+        key: 'last_issue_created_at',
+        type: 'datetime',
+        required: true,
+        default: null,
+        array: false
+      },
+      {
+        key: 'last_checked_at',
+        type: 'datetime',
+        required: true,
+        default: null,
+        array: false
+      }
+    ],
+    indexes: [
+      {
+        key: 'user_repo_tracker_index',
+        type: 'unique',
+        attributes: ['user_id', 'repository_id']
+      },
+      {
+        key: 'user_trackers_index',
+        type: 'key',
+        attributes: ['user_id']
+      },
+      {
+        key: 'repo_trackers_index',
+        type: 'key',
+        attributes: ['repo_owner', 'repo_name']
+      }
+    ]
   }
 };
 
