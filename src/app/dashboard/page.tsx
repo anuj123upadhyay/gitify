@@ -6,7 +6,7 @@ import { Layout } from '@/components/Layout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { LoadingMessage } from '@/components/ui/Loader';
-import GitHubTokenStatus from '@/components/GitHubTokenStatus';
+
 import { ExternalLink, Trash2, Eye, EyeOff, Plus } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
@@ -191,9 +191,6 @@ export default function Dashboard() {
               ))}
             </div>
           )}
-
-          {/* GitHub Token Status Section */}
-          <GitHubTokenStatus className="mt-8" />
         </div>
       </div>
     </Layout>

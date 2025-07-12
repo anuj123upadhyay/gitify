@@ -4,6 +4,7 @@ import { ReactNode, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/Button';
+import { Footer } from '@/components/Footer';
 import { Github, LogOut, Settings, Plus, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -245,6 +246,9 @@ export function Layout({ children }: LayoutProps) {
       <main className="max-w-7xl mx-auto py-2 xs:py-3 sm:py-4 md:py-6 px-2 xs:px-3 sm:px-4 lg:px-6 xl:px-8">
         {children}
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
