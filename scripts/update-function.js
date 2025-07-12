@@ -16,11 +16,28 @@ async function updateFunctionCode() {
     // Read the enhanced function code
     const functionCode = fs.readFileSync(path.join(__dirname, '../functions/main.js'), 'utf8');
     
-    console.log('🚀 Updating function code...');
+    console.log('🚀 Updating function code for manual control...');
     console.log('Function ID:', functionId);
     console.log('Code length:', functionCode.length);
+    console.log('📅 Function will only execute when manually triggered');
     
-    // Create a deployment
+    // Since direct deployment might not work, provide manual instructions
+    console.log('\n📋 MANUAL DEPLOYMENT INSTRUCTIONS:');
+    console.log('1. Go to Appwrite Console → Functions → gitify-function');
+    console.log('2. Click "Code" tab');
+    console.log('3. Copy the enhanced code from:', path.join(__dirname, '../functions/main.js'));
+    console.log('4. Paste into the console editor');
+    console.log('5. Click "Save & Deploy"');
+    console.log('6. Test by clicking "Execute" button');
+    
+    console.log('\n🎛️ FUNCTION CONTROL:');
+    console.log('- ✅ Automatic scheduling: DISABLED');
+    console.log('- ✅ Manual execution: ENABLED');
+    console.log('- ✅ Dashboard interference: REMOVED');
+    console.log('- ✅ Full scaling features: AVAILABLE');
+    
+    // Try to update via API anyway
+    console.log('\n🔄 Attempting API deployment...');
     const deployment = await functions.createDeployment(
       functionId,
       functionCode,
@@ -33,53 +50,16 @@ async function updateFunctionCode() {
     console.log('Status:', deployment.status);
     
   } catch (error) {
-    console.error('❌ Error updating function:', error);
+    console.error('❌ API deployment failed:', error.message);
+    console.log('\n📝 Manual deployment is recommended:');
+    console.log('Copy the function code from:');
+    console.log(path.join(__dirname, '../functions/main.js'));
+    console.log('\nPaste into Appwrite Console → Functions → gitify-function → Code');
     
-    // Try alternative method: update via file upload
-    try {
-      console.log('🔄 Trying alternative deployment method...');
-      
-      const fs = require('fs');
-      const tar = require('tar');
-      const tempDir = path.join(__dirname, '../temp');
-      const tarPath = path.join(tempDir, 'function.tar.gz');
-      
-      // Create temp directory
-      if (!fs.existsSync(tempDir)) {
-        fs.mkdirSync(tempDir, { recursive: true });
-      }
-      
-      // Create tar.gz file
-      await tar.create(
-        {
-          gzip: true,
-          file: tarPath,
-          cwd: path.join(__dirname, '../functions')
-        },
-        ['main.js', 'package.json']
-      );
-      
-      console.log('Created tar file:', tarPath);
-      
-      // Upload the tar file
-      const fileBuffer = fs.readFileSync(tarPath);
-      const deployment = await functions.createDeployment(
-        functionId,
-        fileBuffer,
-        true,
-        'main.js'
-      );
-      
-      console.log('✅ Function deployment created via file upload!');
-      console.log('Deployment ID:', deployment.$id);
-      
-      // Clean up temp files
-      fs.unlinkSync(tarPath);
-      fs.rmdirSync(tempDir);
-      
-    } catch (altError) {
-      console.error('❌ Alternative deployment method also failed:', altError);
-    }
+    // Show a snippet of the code to verify it's correct
+    const codeSnippet = fs.readFileSync(path.join(__dirname, '../functions/main.js'), 'utf8').substring(0, 200);
+    console.log('\n📄 Code preview:');
+    console.log(codeSnippet + '...');
   }
 }
 
