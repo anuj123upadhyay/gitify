@@ -16,7 +16,7 @@
 
 ---
 ## Architecture 
- <img src="public/gitnotify.png" alt="Gitify Logo" width="500" height="600" />
+ <img src="public/gitnotify.png" alt="Gitify Logo" width="1000" height="900" />
 
 
 ---
