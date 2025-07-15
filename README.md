@@ -1,221 +1,297 @@
-# Gitify - GitHub Issue Notifications
+<div align="center">
+  <img src="public/favicon.png" alt="Gitify Logo" width="120" height="120" />
+  
+  # Gitify 🚀
+  
+  **Never miss a GitHub issue again.**
+  
+  [![Next.js](https://img.shields.io/badge/Next.js-14.2.30-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.6-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![Appwrite](https://img.shields.io/badge/Appwrite-13.0.2-F02E65?logo=appwrite&logoColor=white)](https://appwrite.io/)
+  
+  [Live Demo](#) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Contributing](#contributing)
+  
+</div>
 
-A production-ready SaaS application that helps open-source contributors get notified as soon as new GitHub issues are created in repositories they care about — before others claim them.
+---
+## Architecture 
+ <img src="public/gitnotify.png" alt="Gitify Logo" width="500" height="600" />
 
-## 🚀 Features
 
-- **Fast Notifications**: Get email notifications every 10 minutes when new issues are created
-- **Smart Filtering**: Filter by labels like "good first issue", "help wanted", etc.
-- **GitHub Integration**: Seamless OAuth integration with GitHub
-- **Label-based Tracking**: Track specific labels in repositories
-- **Dashboard**: Beautiful interface to manage tracked repositories
-- **Secure Authentication**: Support for both GitHub OAuth and email/password auth
+---
+## ✨ Features
 
-## 🛠️ Tech Stack
+### 🔔 **Smart Issue Tracking**
+- **Real-time Monitoring**: Track new issues across multiple GitHub repositories
+- **Label-based Filtering**: Monitor specific issue types with custom labels
+- **Intelligent Notifications**: Get notified only for issues that matter to you
+
+### 🎯 **User-Friendly Dashboard**
+- **Clean Interface**: Modern, responsive design with dark mode support
+- **Repository Management**: Easy add/remove repositories with visual feedback
+- **Tracking Control**: Pause/resume issue tracking with elegant confirmations
+
+### ⚡ **Advanced Features**
+- **Scalable Architecture**: Multi-token GitHub API management for high-volume tracking
+- **Email Notifications**: SMTP-based email alerts for new issues
+- **Per-User Tracking**: Individual issue tracking state for each user
+- **10-minute Polling**: Efficient background monitoring every 10 minutes
+
+### 🛡️ **Security & Privacy**
+- **OAuth Integration**: Secure GitHub authentication via Appwrite
+- **Data Protection**: User data stored securely with proper encryption
+- **Rate Limit Management**: Intelligent GitHub API rate limit handling
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 18.0 or higher
+- **npm** or **yarn**
+- **Appwrite** account ([Get started](https://appwrite.io/))
+- **GitHub** account with API access
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/anuj123upadhyay/gitify.git
+   cd gitify
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Configure your `.env.local` with:
+   ```env
+   # Appwrite Configuration
+   NEXT_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+   NEXT_PUBLIC_APPWRITE_PROJECT_ID=your_project_id
+   APPWRITE_API_KEY=your_api_key
+   
+   # Database Configuration
+   NEXT_PUBLIC_DATABASE_ID=your_database_id
+   NEXT_PUBLIC_COLLECTION_USERS=your_users_collection_id
+   NEXT_PUBLIC_COLLECTION_REPOSITORIES=your_repositories_collection_id
+   NEXT_PUBLIC_COLLECTION_NOTIFICATIONS=your_notifications_collection_id
+   
+   # GitHub API Tokens (for scaling)
+   GITHUB_TOKEN=your_github_token
+   GITHUB_TOKEN_1=your_github_token_1
+   GITHUB_TOKEN_2=your_github_token_2
+   # ... up to GITHUB_TOKEN_6
+   
+   # SMTP Configuration (for email notifications)
+   SMTP_HOST=your_smtp_host
+   SMTP_PORT=587
+   SMTP_USER=your_smtp_user
+   SMTP_PASS=your_smtp_password
+   ```
+
+4. **Set up Appwrite database**
+   ```bash
+   node scripts/setup-appwrite.js
+   ```
+
+5. **Deploy Appwrite functions**
+   ```bash
+   cd functions
+   appwrite deploy function
+   ```
+
+6. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+Your app will be available at `http://localhost:3000` 🎉
+
+---
+
+## 📱 Usage
+
+### 1. **Sign Up & Authentication**
+- Create an account or sign in with GitHub OAuth
+- Secure authentication powered by Appwrite
+
+### 2. **Add Repositories**
+- Navigate to "Add Repository" in your dashboard
+- Enter GitHub repository URL
+- Select issue labels to track (optional)
+- Click "Add Repository"
+
+### 3. **Manage Tracking**
+- **Enable/Disable**: Use the eye icon to pause/resume tracking
+- **Delete**: Remove repositories with confirmation warnings
+- **Monitor**: View tracking status and last check times
+
+### 4. **Receive Notifications**
+- Email notifications for new issues
+- Real-time dashboard updates
+- Label-filtered issue alerts
+
+---
+
+## 🏗️ Architecture
 
 ### Frontend
-- **Next.js 14** with App Router
-- **React 18** with TypeScript
-- **Tailwind CSS** for styling
-- **SWR** for data fetching
-- **Lucide React** for icons
+- **Next.js 14**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **Lucide React**: Beautiful icons
+- **SWR**: Data fetching and caching
 
-### Backend (BaaS)
-- **Appwrite** for database, authentication, and functions
-- **GitHub REST API** for fetching issues
-- **Email notifications** via Appwrite or custom SMTP
+### Backend
+- **Appwrite**: Backend-as-a-Service
+- **Appwrite Functions**: Serverless GitHub polling
+- **Database**: Real-time data storage
+- **Authentication**: OAuth and email authentication
 
-## 📋 Prerequisites
+### Integrations
+- **GitHub API**: Repository and issue fetching
+- **SMTP**: Email notification delivery
+- **Multi-token Management**: Scalable API rate limiting
 
-- Node.js 18+ and npm
-- Appwrite account (cloud.appwrite.io or self-hosted)
-- GitHub account for OAuth and API access
+---
 
-## 🔧 Setup Instructions
+## 🔧 Configuration
 
-### 1. Clone and Install
-
-```bash
-git clone <your-repo-url>
-cd gitify
-npm install
-```
-
-### 2. Environment Configuration
-
-Copy the environment template:
-
-```bash
-cp .env.example .env.local
-```
-
-Update `.env.local` with your configuration:
+### GitHub API Tokens
+For high-volume tracking, configure multiple GitHub tokens:
 
 ```env
-# Appwrite Configuration
-NEXT_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
-NEXT_PUBLIC_APPWRITE_PROJECT_ID=your-project-id
-
-# GitHub API
-GITHUB_TOKEN=your-github-token
-
-# App Configuration
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+GITHUB_TOKEN=ghp_primary_token
+GITHUB_TOKEN_1=ghp_token_1
+GITHUB_TOKEN_2=ghp_token_2
+GITHUB_TOKEN_3=ghp_token_3
+GITHUB_TOKEN_4=ghp_token_4
+GITHUB_TOKEN_5=ghp_token_5
+GITHUB_TOKEN_6=ghp_token_6
 ```
 
-### 3. Appwrite Setup
+### Email Configuration
+Configure SMTP for email notifications:
 
-#### Create a New Project
-1. Go to [Appwrite Console](https://cloud.appwrite.io)
-2. Create a new project
-3. Copy the Project ID to your `.env.local`
-
-#### Configure Authentication
-1. Go to **Auth** → **Settings**
-2. Add your domain to allowed origins: `http://localhost:3000`
-3. Enable **Email/Password** authentication
-4. For GitHub OAuth:
-   - Go to **Auth** → **Settings** → **OAuth2**
-   - Enable GitHub provider
-   - Add your GitHub OAuth app credentials
-
-#### Create Database and Collections
-
-1. Go to **Databases** → Create database with ID: `gitify-db`
-
-2. Create the following collections:
-
-**Users Collection** (`users`):
-- No additional attributes needed (uses built-in Appwrite user system)
-
-**Repositories Collection** (`repositories`):
-```
-- userId (string, required)
-- repoUrl (string, required)  
-- repoName (string, required)
-- repoOwner (string, required)
-- labels (string[], optional)
-- lastCheckedAt (datetime, optional)
-- lastIssueId (string, optional)
-- isActive (boolean, required, default: true)
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
 ```
 
-**Notification Preferences Collection** (`notification-preferences`):
-```
-- userId (string, required)
-- emailEnabled (boolean, required, default: true)
-- frequency (string, required, default: "immediate")
-```
-
-#### Set Permissions
-
-For each collection, set these permissions:
-- **Create**: Users
-- **Read**: Users (with user ID matching document's userId)
-- **Update**: Users (with user ID matching document's userId)
-- **Delete**: Users (with user ID matching document's userId)
-
-### 4. GitHub Token Setup
-
-1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
-2. Generate a new token with these permissions:
-   - `public_repo` (for public repositories)
-   - `repo` (if you want to track private repositories)
-3. Add the token to your `.env.local`
-
-### 5. Development
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Visit `http://localhost:3000` to see the application.
-
-## 🏗️ Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── auth/              # Authentication pages
-│   ├── dashboard/         # Dashboard and app pages
-│   └── layout.tsx         # Root layout
-├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   └── Layout.tsx        # Main app layout
-├── contexts/             # React contexts
-│   └── AuthContext.tsx   # Authentication context
-├── hooks/                # Custom React hooks
-│   └── useRepositories.ts # Repository management
-├── lib/                  # Utility libraries
-│   ├── appwrite.ts       # Appwrite configuration
-│   └── utils.ts          # Helper functions
-└── types/                # TypeScript type definitions
-    └── index.ts          # Main type definitions
-```
-
-## 🔮 Next Steps
-
-### Phase 1: Backend Functions (Current)
-- [ ] Create Appwrite Function for GitHub polling
-- [ ] Implement CRON schedule (every 10 minutes)
-- [ ] Add email notification logic
-- [ ] Error handling and logging
-
-### Phase 2: Enhanced Features
-- [ ] Settings page for notification preferences
-- [ ] Repository statistics and insights
-- [ ] Mobile responsive improvements
-- [ ] Advanced label filtering
-
-### Phase 3: Production Ready
-- [ ] Performance optimization
-- [ ] Rate limiting and caching
-- [ ] Monitoring and analytics
-- [ ] Deployment configuration
-
-### Phase 4: SaaS Features
-- [ ] Stripe billing integration
-- [ ] User tiers and limits
-- [ ] Team collaboration features
-- [ ] Advanced filtering options
+---
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
 
-1. Connect your repository to Vercel
-2. Add environment variables in Vercel dashboard
-3. Deploy automatically on push
+1. **Connect to Vercel**
+   ```bash
+   vercel --prod
+   ```
+
+2. **Configure environment variables** in Vercel dashboard
+
+3. **Deploy Appwrite functions** to production
 
 ### Other Platforms
+- **Netlify**: Deploy with build command `npm run build`
+- **Railway**: One-click deployment
+- **DigitalOcean**: App Platform deployment
 
-The app can be deployed to any platform that supports Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
-
-## 🔐 Security
-
-- All routes are protected with Appwrite authentication
-- Environment variables are used for sensitive data
-- CORS is properly configured
-- Rate limiting should be implemented for production
-
-## 📝 License
-
-This project is licensed under the MIT License.
+---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+We welcome contributions! Here's how to get started:
 
-## 💬 Support
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Make your changes**
+4. **Add tests** (if applicable)
+5. **Commit your changes**
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+6. **Push to the branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+7. **Open a Pull Request**
 
-For questions or issues, please open a GitHub issue or reach out via email.
+### Development Guidelines
+- Follow TypeScript best practices
+- Use Tailwind CSS for styling
+- Write meaningful commit messages
+- Test your changes thoroughly
+
+---
+
+## 📊 Performance
+
+- **⚡ Fast Loading**: Optimized Next.js with SSR
+- **🔄 Efficient Polling**: 10-minute interval GitHub checks
+- **📈 Scalable**: Multi-token rate limit management
+- **💾 Cached Data**: SWR for optimal data fetching
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Q: GitHub API rate limit exceeded**
+A: Configure multiple GitHub tokens in your environment variables
+
+**Q: Email notifications not working**
+A: Check your SMTP configuration and app passwords
+
+**Q: Repository not being tracked**
+A: Ensure the eye icon is enabled and notifications are active
+
+**Q: Appwrite function errors**
+A: Check function logs in Appwrite console and verify environment variables
+
+### Support
+- 📧 Email: your-email@example.com
+- 🐛 Issues: [GitHub Issues](https://github.com/anuj123upadhyay/gitify/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/anuj123upadhyay/gitify/discussions)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **GitHub** for the amazing API
+- **Appwrite** for the powerful backend platform
+- **Next.js** team for the excellent framework
+- **Tailwind CSS** for the beautiful styling system
+- **Lucide** for the icon library
+
+---
+
+<div align="center">
+  
+  **Built with ❤️ by [Anuj Upadhyay](https://github.com/anuj123upadhyay)**
+  
+  ⭐ **Star this repo if you find it useful!** ⭐
+  
+</div>
