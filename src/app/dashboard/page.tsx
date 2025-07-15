@@ -7,31 +7,86 @@ import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { LoadingMessage } from '@/components/ui/Loader';
 
-import { ExternalLink, Trash2, Eye, EyeOff, Plus } from 'lucide-react';
+import { ExternalLink, Trash2, Eye, EyeOff, Plus, AlertTriangle } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 import DashboardBackground from '@/components/ui/DashboardBackground';
+import { useState } from 'react';
 
 export default function Dashboard() {
   const { user } = useAuth();
   const { repositories, loading, deleteRepository, updateRepository } = useRepositories();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [repoToDelete, setRepoToDelete] = useState<any>(null);
+  const [showToggleModal, setShowToggleModal] = useState(false);
+  const [repoToToggle, setRepoToToggle] = useState<any>(null);
 
-  const handleToggleRepo = async (repoId: string, notifications_enabled: boolean) => {
+  const handleToggleRepo = async (repo: any) => {
+    // If enabling notifications, do it directly
+    if (!repo.notifications_enabled) {
+      try {
+        await updateRepository(repo.$id, { notifications_enabled: true });
+        console.log('✅ Repository notifications enabled - issues will be tracked');
+      } catch (error) {
+        console.error('Failed to toggle repository:', error);
+      }
+    } else {
+      // If disabling notifications, show confirmation modal
+      setRepoToToggle(repo);
+      setShowToggleModal(true);
+    }
+  };
+
+  const confirmToggleRepo = async () => {
+    if (!repoToToggle) return;
+
     try {
-      await updateRepository(repoId, { notifications_enabled: !notifications_enabled });
+      await updateRepository(repoToToggle.$id, { notifications_enabled: false });
+      
+      // Close modal and reset state
+      setShowToggleModal(false);
+      setRepoToToggle(null);
+      
+      console.log('⏸️ Repository notifications disabled - issues will NOT be tracked');
     } catch (error) {
       console.error('Failed to toggle repository:', error);
     }
   };
 
-  const handleDeleteRepo = async (repoId: string) => {
-    if (confirm('Are you sure you want to remove this repository?')) {
-      try {
-        await deleteRepository(repoId);
-      } catch (error) {
-        console.error('Failed to delete repository:', error);
-      }
+  const cancelToggleRepo = () => {
+    setShowToggleModal(false);
+    setRepoToToggle(null);
+  };
+
+  const handleDeleteRepo = async (repo: any) => {
+    // Set the repository to delete and show modal
+    setRepoToDelete(repo);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteRepo = async () => {
+    if (!repoToDelete) return;
+
+    try {
+      // First disable notifications to ensure no tracking
+      await updateRepository(repoToDelete.$id, { notifications_enabled: false });
+      
+      // Then delete the repository
+      await deleteRepository(repoToDelete.$id);
+      
+      // Close modal and reset state
+      setShowDeleteModal(false);
+      setRepoToDelete(null);
+      
+      console.log(`✅ Repository ${repoToDelete.repo_owner}/${repoToDelete.repo_name} deleted and notifications disabled`);
+    } catch (error) {
+      console.error('Failed to delete repository:', error);
     }
+  };
+
+  const cancelDeleteRepo = () => {
+    setShowDeleteModal(false);
+    setRepoToDelete(null);
   };
 
   if (loading) {
@@ -55,7 +110,7 @@ export default function Dashboard() {
               </h1>
               <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2">
                 <p className="text-xs xs:text-sm text-secondary-600 dark:text-secondary-300 transition-colors">
-                  Tracking {repositories.length} {repositories.length === 1 ? 'repository' : 'repositories'}
+                  Tracking {repositories.filter(repo => repo.notifications_enabled).length} of {repositories.length} {repositories.length === 1 ? 'repository' : 'repositories'}
                 </p>
                 <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-2 py-0.5 rounded-full w-fit transition-colors">
                   📡 10-min polling
@@ -118,8 +173,8 @@ export default function Dashboard() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleToggleRepo(repo.$id, repo.notifications_enabled)}
-                          title={repo.notifications_enabled ? 'Pause notifications' : 'Resume notifications'}
+                          onClick={() => handleToggleRepo(repo)}
+                          title={repo.notifications_enabled ? 'Pause issue tracking' : 'Resume issue tracking'}
                           className="p-1 xs:p-1.5 sm:p-2"
                         >
                           {repo.notifications_enabled ? (
@@ -131,7 +186,7 @@ export default function Dashboard() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDeleteRepo(repo.$id)}
+                          onClick={() => handleDeleteRepo(repo)}
                           title="Remove repository"
                           className="p-1 xs:p-1.5 sm:p-2"
                         >
@@ -189,6 +244,126 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          )}
+
+          {/* Delete Repository Confirmation Modal */}
+          {showDeleteModal && repoToDelete && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50 p-4">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-md w-full mx-4 border border-gray-200 dark:border-gray-800">
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0">
+                      <AlertTriangle className="h-6 w-6 text-yellow-500" />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-primary-300">
+                        Remove Repository
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      Are you sure you want to remove{' '}
+                      <span className="font-medium text-gray-900 dark:text-primary-300">
+                        {repoToDelete.repo_owner}/{repoToDelete.repo_name}
+                      </span>
+                      ?
+                    </p>
+                    
+                    <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md p-3">
+                      <div className="flex items-start">
+                        <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+                        <div className="ml-2">
+                          <p className="text-sm text-yellow-700 dark:text-yellow-300 font-medium">
+                            Warning: Issue tracking will be disabled
+                          </p>
+                          <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-1">
+                            This repository will no longer be monitored for new issues. You can re-add it later if needed.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-3">
+                    <Button 
+                      variant="outline" 
+                      onClick={cancelDeleteRepo}
+                      className="flex-1"
+                    >
+                      Cancel
+                    </Button>
+                    <Button 
+                      onClick={confirmDeleteRepo}
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+                    >
+                      Remove Repository
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Toggle Repository Confirmation Modal */}
+          {showToggleModal && repoToToggle && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50 p-4">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-md w-full mx-4 border border-gray-200 dark:border-gray-800">
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0">
+                      <AlertTriangle className="h-6 w-6 text-yellow-500" />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-primary-300">
+                        Pause Issue Tracking
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      Are you sure you want to pause tracking for{' '}
+                      <span className="font-medium text-gray-900 dark:text-primary-300">
+                        {repoToToggle.repo_owner}/{repoToToggle.repo_name}
+                      </span>
+                      ?
+                    </p>
+                    
+                    <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md p-3">
+                      <div className="flex items-start">
+                        <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+                        <div className="ml-2">
+                          <p className="text-sm text-yellow-700 dark:text-yellow-300 font-medium">
+                            Warning: Issue tracking will be paused
+                          </p>
+                          <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-1">
+                            This repository will stop being monitored for new issues until you resume tracking.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-3">
+                    <Button 
+                      variant="outline" 
+                      onClick={cancelToggleRepo}
+                      className="flex-1"
+                    >
+                      Cancel
+                    </Button>
+                    <Button 
+                      onClick={confirmToggleRepo}
+                      className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white"
+                    >
+                      Pause Tracking
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
