@@ -6,28 +6,32 @@ import { useUserProfile } from '@/hooks/useUserProfile';
 import { Layout } from '@/components/Layout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { LoadingMessage } from '@/components/ui/Loader';
 import { ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
 import SettingsBackground from '@/components/ui/SettingsBackground';
+import { FIELDS, NOTIFICATION_FREQUENCY } from '@/constants/appwrite';
+import { handleError } from '@/lib/errors/errorHandler';
 
 export default function Settings() {
   const { user, signOut } = useAuth();
   const { userProfile, loading, updateUserProfile } = useUserProfile();
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  
+  type NotificationFrequencyType = typeof NOTIFICATION_FREQUENCY[keyof typeof NOTIFICATION_FREQUENCY];
+  
   const [formData, setFormData] = useState({
     name: user?.name || '',
-    notification_frequency: 'immediate' as 'immediate' | 'hourly' | 'daily',
+    notification_frequency: NOTIFICATION_FREQUENCY.IMMEDIATE as NotificationFrequencyType,
   });
 
   // Update form data when userProfile loads
   useEffect(() => {
-    if (userProfile) {
+    if (userProfile && typeof userProfile !== 'string') {
       setFormData({
         name: user?.name || '',
-        notification_frequency: (userProfile.notification_frequency as 'immediate' | 'hourly' | 'daily') || 'immediate',
+        notification_frequency: (userProfile.notification_frequency as NotificationFrequencyType) || NOTIFICATION_FREQUENCY.IMMEDIATE,
       });
     }
   }, [userProfile, user]);
@@ -39,13 +43,13 @@ export default function Settings() {
 
     try {
       await updateUserProfile({
-        notification_frequency: formData.notification_frequency,
+        [FIELDS.NOTIFICATION_FREQUENCY]: formData.notification_frequency,
       });
       
       setMessage('Settings saved successfully!');
       setTimeout(() => setMessage(''), 3000);
-    } catch (error: any) {
-      setMessage('Failed to save settings: ' + error.message);
+    } catch (error) {
+      setMessage(handleError(error, 'Save settings'));
     } finally {
       setSaving(false);
     }
@@ -113,23 +117,23 @@ export default function Settings() {
               </div>
             </div>
             
-            {userProfile && (
+            {userProfile && typeof userProfile !== 'string' && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors">
                     Authentication Provider
                   </label>
                   <p className="text-sm text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-800 p-2 rounded border dark:border-gray-600 capitalize transition-colors">
-                    {userProfile.auth_provider}
+                    {userProfile[FIELDS.AUTH_PROVIDER as keyof typeof userProfile]}
                   </p>
                 </div>
-                {userProfile.github_username && (
+                {userProfile[FIELDS.GITHUB_USERNAME as keyof typeof userProfile] && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors">
                       GitHub Username
                     </label>
                     <p className="text-sm text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-800 p-2 rounded border dark:border-gray-600 transition-colors">
-                      @{userProfile.github_username}
+                      @{userProfile[FIELDS.GITHUB_USERNAME as keyof typeof userProfile]}
                     </p>
                   </div>
                 )}
@@ -161,9 +165,9 @@ export default function Settings() {
                 </label>
                 <div className="space-y-3">
                   {[
-                    { value: 'immediate', label: 'Immediate', description: 'Get notified as soon as new issues are found' },
-                    { value: 'hourly', label: 'Hourly', description: 'Receive a summary every hour' },
-                    { value: 'daily', label: 'Daily', description: 'Receive a daily digest' },
+                    { value: NOTIFICATION_FREQUENCY.IMMEDIATE, label: 'Immediate', description: 'Get notified as soon as new issues are found' },
+                    { value: NOTIFICATION_FREQUENCY.HOURLY, label: 'Hourly', description: 'Receive a summary every hour' },
+                    { value: NOTIFICATION_FREQUENCY.DAILY, label: 'Daily', description: 'Receive a daily digest' },
                   ].map((option) => (
                     <label key={option.value} className="flex items-start space-x-3 cursor-pointer">
                       <input
@@ -173,7 +177,7 @@ export default function Settings() {
                         checked={formData.notification_frequency === option.value}
                         onChange={(e) => setFormData({ 
                           ...formData, 
-                          notification_frequency: e.target.value as 'immediate' | 'hourly' | 'daily'
+                          notification_frequency: e.target.value as NotificationFrequencyType
                         })}
                         className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700"
                       />

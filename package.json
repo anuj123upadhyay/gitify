@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@types/node": "^20.14.11",
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.19",
+    "cypress": "^14.5.4",
     "dotenv": "^17.0.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",

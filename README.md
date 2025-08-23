@@ -9,8 +9,9 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.6-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
   [![Appwrite](https://img.shields.io/badge/Appwrite-13.0.2-F02E65?logo=appwrite&logoColor=white)](https://appwrite.io/)
+  [![Cypress](https://img.shields.io/badge/Cypress-13.6.0-17202C?logo=cypress&logoColor=white)](https://www.cypress.io/)
   
-  [Live Demo](#) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Contributing](#contributing)
+  [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Testing](#testing) • [Contributing](#contributing)
   
 </div>
 

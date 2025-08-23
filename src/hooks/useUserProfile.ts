@@ -1,9 +1,11 @@
 'use client';
 
+
 import useSWR from 'swr';
 import { databases, DATABASE_ID, COLLECTIONS } from '@/lib/appwrite';
 import { UserDocument } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
+import { handleError } from '../lib/errors/errorHandler';
 
 export function useUserProfile() {
   const { user } = useAuth();
@@ -19,7 +21,6 @@ export function useUserProfile() {
           COLLECTIONS.USERS,
           user.$id
         );
-        
         return response as unknown as UserDocument;
       } catch (error: any) {
         if (error.code === 404) {
@@ -38,13 +39,13 @@ export function useUserProfile() {
           );
           return newUserDoc as unknown as UserDocument;
         }
-        throw error;
+        return handleError(error, 'fetchUserProfile');
       }
     }
   );
 
   const updateUserProfile = async (updates: Partial<UserDocument>) => {
-    if (!user) throw new Error('User not authenticated');
+  if (!user) return handleError(new Error('User not authenticated'), 'updateUserProfile');
 
     try {
       const response = await databases.updateDocument(
@@ -53,11 +54,10 @@ export function useUserProfile() {
         user.$id,
         updates
       );
-
       mutate();
       return response as unknown as UserDocument;
     } catch (error) {
-      throw error;
+      return handleError(error, 'updateUserProfile');
     }
   };
 

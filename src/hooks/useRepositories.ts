@@ -1,11 +1,13 @@
 'use client';
 
+
 import useSWR from 'swr';
 import { databases, DATABASE_ID, COLLECTIONS } from '@/lib/appwrite';
 import { Repository } from '@/types';
 import { validateGitHubUrl } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { Query } from 'appwrite';
+import { handleError } from '../lib/errors/errorHandler';
 
 export function useRepositories() {
   const { user } = useAuth();
@@ -26,11 +28,11 @@ export function useRepositories() {
   );
 
   const addRepository = async (repoUrl: string, labels: string[] = []) => {
-    if (!user) throw new Error('User not authenticated');
+  if (!user) return handleError(new Error('User not authenticated'), 'addRepository');
 
     const validation = validateGitHubUrl(repoUrl);
     if (!validation.isValid || !validation.owner || !validation.repo) {
-      throw new Error('Invalid GitHub URL');
+      return handleError(new Error('Invalid GitHub URL'), 'addRepository');
     }
 
     const repoData = {
@@ -50,11 +52,12 @@ export function useRepositories() {
         'unique()',
         repoData
       );
-
       mutate();
       return response as unknown as Repository;
     } catch (error) {
-      throw error;
+  // Log the error and throw a friendly error so callers can handle it
+  handleError(error, 'addRepository');
+  throw new Error('Failed to add repository');
     }
   };
 
@@ -66,11 +69,10 @@ export function useRepositories() {
         repoId,
         updates
       );
-
       mutate();
       return response as unknown as Repository;
     } catch (error) {
-      throw error;
+      return handleError(error, 'updateRepository');
     }
   };
 
@@ -81,10 +83,9 @@ export function useRepositories() {
         COLLECTIONS.REPOSITORIES,
         repoId
       );
-
       mutate();
     } catch (error) {
-      throw error;
+      return handleError(error, 'deleteRepository');
     }
   };
 
