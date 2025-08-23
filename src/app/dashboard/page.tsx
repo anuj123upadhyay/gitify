@@ -113,7 +113,7 @@ export default function Dashboard() {
                   Tracking {repositories.filter(repo => repo.notifications_enabled).length} of {repositories.length} {repositories.length === 1 ? 'repository' : 'repositories'}
                 </p>
                 <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-2 py-0.5 rounded-full w-fit transition-colors">
-                  📡 10-min polling
+                  📡 
                 </span>
               </div>
             </div>
