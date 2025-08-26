@@ -1,8 +1,8 @@
-# Contributing Guide
+# Contributing Guide :
 
 Thank you for considering contributing to **Gitify**! We appreciate community involvement to make the project better. Please follow this guide to get started.
 
-## Getting Started
+## Getting Started :
 
 1. Fork the repository on GitHub.
 2. Clone your fork locally:
@@ -19,14 +19,14 @@ Thank you for considering contributing to **Gitify**! We appreciate community in
    git checkout -b feature/your-feature-name
    ```
 
-## Making Changes
+## Making Changes :
 
 - Make small, focused commits with clear messages.
 - Ensure TypeScript types are correct and no type errors.
 - Follow the existing code style (Prettier & ESLint configurations).
 - Write tests for new functionality or bug fixes, especially for core logic.
 
-## Pull Request Process
+## Pull Request Process :
 
 1. Push your branch to your fork:
    ```bash
@@ -37,7 +37,7 @@ Thank you for considering contributing to **Gitify**! We appreciate community in
 4. Wait for review; address any feedback by updating your branch.
 5. Once approved, your PR will be merged.
 
-## Development Guidelines
+## Development Guidelines :
 
 - Use descriptive branch names (`feature/...`, `fix/...`, etc.).
 - Run `npm run lint` and `npm run test` before pushing.

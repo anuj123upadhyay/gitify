@@ -1,5 +1,4 @@
-'use client';
-
+'use client'  ;
 import { useAuth } from '@/contexts/AuthContext';
 import { useRepositories } from '@/hooks/useRepositories';
 import { Layout } from '@/components/Layout';
