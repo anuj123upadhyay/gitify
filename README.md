@@ -261,45 +261,6 @@ graph LR
 
 ## 🧪 Testing
 
-### Test Architecture
-```mermaid
-graph TB
-    subgraph "Test Types"
-        UNIT[Unit Tests]
-        E2E[E2E Tests]
-        API[API Tests]
-    end
-    
-    subgraph "Test Tools"
-        CYPRESS[Cypress]
-        JEST[Jest]
-        RTL[React Testing Library]
-    end
-    
-    subgraph "Test Environments"
-        LOCAL[Local Development]
-        CI[GitHub Actions]
-        PREVIEW[Vercel Preview]
-    end
-    
-    UNIT --> JEST
-    UNIT --> RTL
-    E2E --> CYPRESS
-    API --> CYPRESS
-    
-    CYPRESS --> LOCAL
-    CYPRESS --> CI
-    JEST --> LOCAL
-    JEST --> CI
-    
-    LOCAL --> PREVIEW
-    CI --> PREVIEW
-    
-    style UNIT fill:#e1f5fe
-    style E2E fill:#e8f5e8
-    style API fill:#fff3e0
-```
-
 ### Running Tests
 
 **Cypress E2E Tests**
@@ -479,28 +440,6 @@ graph TB
 
 ## 🤝 Contributing
 
-### Contribution Flow
-```mermaid
-flowchart LR
-    A[Fork Repo] --> B[Clone Locally]
-    B --> C[Create Branch]
-    C --> D[Make Changes]
-    D --> E[Run Tests]
-    E --> F{Tests Pass?}
-    F -->|No| D
-    F -->|Yes| G[Commit Changes]
-    G --> H[Push Branch]
-    H --> I[Create PR]
-    I --> J[Code Review]
-    J --> K{Approved?}
-    K -->|No| D
-    K -->|Yes| L[Merge to Main]
-    
-    style A fill:#e1f5fe
-    style L fill:#e8f5e8
-    style F fill:#fff3e0
-    style K fill:#fff3e0
-```
 
 We welcome contributions! Here's how to get started:
 
@@ -528,73 +467,12 @@ We welcome contributions! Here's how to get started:
 - Test your changes thoroughly
 - Update documentation when needed
 
-### Code Review Process
-```mermaid
-graph LR
-    PR[Pull Request] --> AUTO[Automated Checks]
-    AUTO --> REVIEW[Code Review]
-    REVIEW --> APPROVE[Approval]
-    APPROVE --> MERGE[Merge]
-    
-    style PR fill:#e3f2fd
-    style APPROVE fill:#e8f5e8
-    style MERGE fill:#c8e6c9
-```
 
 ---
 
 ## 📊 Performance & Monitoring
 
-### Performance Metrics
-```mermaid
-pie title API Usage Distribution
-    "GitHub API Calls" : 45
-    "Database Operations" : 35
-    "Email Notifications" : 15
-    "Authentication" : 5
-```
-
-### System Health Dashboard
-```mermaid
-graph TD
-    subgraph "Monitoring Dashboard"
-        Health[System Health]
-        Metrics[Performance Metrics]
-        Alerts[Alert System]
-    end
-    
-    subgraph "Key Metrics"
-        RT[Response Time < 2s]
-        UP[Uptime > 99.9%]
-        API[API Calls/min]
-        USERS[Active Users]
-    end
-    
-    subgraph "Alert Triggers"
-        RATE[Rate Limit Hit]
-        ERROR[Error Rate > 5%]
-        DOWN[Service Down]
-    end
-    
-    Health --> RT
-    Health --> UP
-    Metrics --> API
-    Metrics --> USERS
-    
-    Alerts --> RATE
-    Alerts --> ERROR
-    Alerts --> DOWN
-    
-    style Health fill:#e8f5e8
-    style RT fill:#c8e6c9
-    style UP fill:#c8e6c9
-    style RATE fill:#ffcdd2
-    style ERROR fill:#ffcdd2
-    style DOWN fill:#ffcdd2
-```
-
 - **⚡ Fast Loading**: Optimized Next.js with SSR and static generation
-- **🔄 Efficient Polling**: Smart 10-minute interval GitHub checks
 - **📈 Scalable**: Multi-token rate limit management supports 1000+ repos
 - **💾 Cached Data**: SWR for optimal data fetching and real-time updates
 - **🎯 Intelligent Filtering**: Label-based issue filtering reduces noise by 80%
@@ -629,17 +507,6 @@ flowchart TD
 
 ### Common Issues & Solutions
 
-**Q: GitHub API rate limit exceeded**
-```mermaid
-graph LR
-    PROBLEM[Rate Limit Hit] --> SOLUTION1[Add More Tokens]
-    SOLUTION1 --> CONFIG[Configure in .env]
-    CONFIG --> TEST[Test API Calls]
-    TEST --> SUCCESS[✅ Resolved]
-    
-    style PROBLEM fill:#ffcdd2
-    style SUCCESS fill:#c8e6c9
-```
 A: Configure multiple GitHub tokens in your environment variables
 
 **Q: Email notifications not working**
